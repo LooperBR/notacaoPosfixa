@@ -1,14 +1,3 @@
-/*
-1*2+3
-1+2*3
-1*(2+3)
-1/2*3+4*5-1*3
-
-12
-*
-
-*/
-
 var expressaoTexto = document.getElementById("expressao");
 var resultadoTexto = document.getElementById("resultado");
 var pilhaTexto = document.getElementById("pilha");
@@ -21,62 +10,8 @@ function limpa(){
     expressao = undefined;
     resultado = []
     pilha = []
-}
-
-function macumba(){
-    expressao = expressaoTexto.value;
-    let resultado = []
-    let pilha = []
-    for(let caracter of expressao){
-        console.log(caracter)
-        if(operacoes.includes(caracter)){
-            console.log('operacao')
-            if(pilha.length>0){
-                if(temPrioridade(caracter,pilha[pilha.length-1])){
-                    console.log('temPrioridade')
-                    pilha.push(caracter)
-                    console.log('pilha')
-                    console.log(JSON.stringify(pilha))
-                }else{
-                    console.log('naoTemPrioridade')
-                    resultado.push(pilha[pilha.length-1])
-                    pilha.pop()
-                    while(pilha.length>0 && !temPrioridade(caracter,pilha[pilha.length-1])){
-                        console.log('naoTemPrioridade' + pilha[pilha.length-1])
-                        resultado.push(pilha[pilha.length-1])
-                        pilha.pop()
-                    }
-                    pilha.push(caracter)
-
-                    
-
-                    console.log('resultado')
-                    console.log(resultado)
-                    console.log('pilha')
-                    console.log(JSON.stringify(pilha))
-                    
-                }
-            }else{
-                pilha.push(caracter)
-                console.log('pilha')
-                console.log(JSON.stringify(pilha))
-                
-            }
-        }else{
-            console.log('caracter')
-            resultado.push(caracter)
-            console.log('resultado')
-            console.log(resultado)
-        }
-        resultadoTexto.innerText = resultado
-        pilhaTexto.innerText = pilha
-    }
-    while(pilha.length>0){
-        resultado.push(pilha.pop())
-        console.log(resultado)
-    }
-    resultadoTexto.innerText = resultado
-        pilhaTexto.innerText = pilha
+    resultadoTexto.innerText = ""
+    pilhaTexto.innerText = ""
 }
 
 function macumbaPasso(){
@@ -95,6 +30,14 @@ function macumbaPasso(){
                 pilha.push(caracter)
                 console.log('pilha')
                 console.log(JSON.stringify(pilha))
+            }else if(caracter == ")"){
+                console.log("gambi )")
+                while(pilha[pilha.length-1] != "("){
+                    console.log(pilha[pilha.length-1])
+                    resultado.push(pilha[pilha.length-1])
+                    pilha.pop()
+                }
+                pilha.pop()
             }else if(temPrioridade(caracter,pilha[pilha.length-1])){
                 console.log('temPrioridade')
                 pilha.push(caracter)
